@@ -5,7 +5,7 @@ const Solution = require('../models/solution');
 const logger = require('../utils/logger');
 
 /**
- * Analyse behavior_logs for a session and dynamically recommend solutions.
+ * Analyze behavior_logs for a session and dynamically recommend solutions.
  *
  * Logic:
  * 1. Fetch recent behavior logs for the session

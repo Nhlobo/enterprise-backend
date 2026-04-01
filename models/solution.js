@@ -23,6 +23,7 @@ const Solution = {
 
   async findByIds(ids) {
     if (!ids || ids.length === 0) return [];
+    // Builds "$1, $2, ..." placeholders only — actual values passed as params (safe)
     const placeholders = ids.map((_, i) => `$${i + 1}`).join(', ');
     const result = await query(
       `SELECT * FROM solutions WHERE id IN (${placeholders})`,
