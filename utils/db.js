@@ -1,6 +1,7 @@
 'use strict';
 
 const { Pool } = require('pg');
+const logger = require('./logger');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -17,8 +18,7 @@ const query = async (text, params) => {
   const res = await pool.query(text, params);
   const duration = Date.now() - start;
   if (process.env.NODE_ENV !== 'test') {
-    // eslint-disable-next-line no-console
-    console.log('query', { text, duration, rows: res.rowCount });
+    logger.debug('query', { text, duration, rows: res.rowCount });
   }
   return res;
 };

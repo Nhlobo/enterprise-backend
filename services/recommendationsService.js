@@ -4,6 +4,9 @@ const BehaviorLog = require('../models/behaviorLog');
 const Solution = require('../models/solution');
 const logger = require('../utils/logger');
 
+const INDUSTRY_PAGE_WEIGHT = 1;
+const SOLUTION_PAGE_WEIGHT = 2;
+
 /**
  * Analyze behavior_logs for a session and dynamically recommend solutions.
  *
@@ -26,12 +29,12 @@ const getRecommendations = async (sessionId, limit = 6) => {
     const match = (log.page_url || '').match(/\/industries\/([^/?#]+)/);
     if (match) {
       const slug = match[1];
-      industryScores[slug] = (industryScores[slug] || 0) + 1;
+      industryScores[slug] = (industryScores[slug] || 0) + INDUSTRY_PAGE_WEIGHT;
     }
     const solutionMatch = (log.page_url || '').match(/\/solutions\/([^/?#]+)/);
     if (solutionMatch) {
       const slug = solutionMatch[1];
-      industryScores[slug] = (industryScores[slug] || 0) + 2;
+      industryScores[slug] = (industryScores[slug] || 0) + SOLUTION_PAGE_WEIGHT;
     }
   }
 

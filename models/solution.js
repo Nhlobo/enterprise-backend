@@ -21,9 +21,13 @@ const Solution = {
     return result.rows[0] || null;
   },
 
+  /**
+   * Find multiple solutions by their IDs.
+   * @param {number[]} ids - Array of solution IDs to fetch.
+   * @returns {Promise<Object[]>} Array of matching solution rows.
+   */
   async findByIds(ids) {
     if (!ids || ids.length === 0) return [];
-    // Builds "$1, $2, ..." placeholders only — actual values passed as params (safe)
     const placeholders = ids.map((_, i) => `$${i + 1}`).join(', ');
     const result = await query(
       `SELECT * FROM solutions WHERE id IN (${placeholders})`,
